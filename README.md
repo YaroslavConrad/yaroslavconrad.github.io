@@ -1,2 +1,2 @@
-# YaroslavConradTutoring.github.io
+# YaroslavConrad.github.io
 Website for my tutoring business
