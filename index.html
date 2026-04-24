@@ -737,48 +737,54 @@
   // =============================================
   const PHONE = "9196015952";
 
-  const SCHEDULE = [
+const SCHEDULE = [
     {
       day: "Monday",
+      location: "📍 Barnes & Noble — Kildaire Farm Rd",
       slots: [
         { time: "4:30 – 5:30 PM", open: true },
-        { time: "5:45 – 6:45 PM", open: false }, // Nadia Chavez
+        { time: "5:45 – 6:45 PM", open: false },
         { time: "7:00 – 8:00 PM", open: true },
       ]
     },
     {
       day: "Tuesday",
+      location: "📍 Eva Perry Regional Library",
       slots: [
         { time: "4:30 – 5:30 PM", open: true },
-        { time: "5:30 – 6:30 PM", open: false }, // Ashley Keith
+        { time: "5:30 – 6:30 PM", open: false },
         { time: "6:30 – 7:30 PM", open: true },
       ]
     },
     {
       day: "Wednesday",
+      location: "📍 Barnes & Noble — Kildaire Farm Rd",
       slots: [
         { time: "4:30 – 5:30 PM", open: true },
-        { time: "5:45 – 6:45 PM", open: false }, // Nadia Chavez
+        { time: "5:45 – 6:45 PM", open: false },
         { time: "7:00 – 8:00 PM", open: true },
       ]
     },
     {
       day: "Thursday",
+      location: "📍 Eva Perry Regional Library",
       slots: [
         { time: "4:30 – 5:30 PM", open: true },
-        { time: "5:30 – 6:30 PM", open: false }, // Ashley Keith
+        { time: "5:30 – 6:30 PM", open: false },
         { time: "6:30 – 7:30 PM", open: true },
       ]
     },
     {
       day: "Friday",
+      location: "📍 West Regional Library",
       slots: [
-        { time: "4:30 – 5:30 PM", open: false }, // Geet
+        { time: "4:30 – 5:30 PM", open: false },
         { time: "5:30 – 6:30 PM", open: true },
-        { time: "6:30 – 7:30 PM", open: false }, // Hafida Joulal
+        { time: "6:30 – 7:30 PM", open: false },
       ]
     },
   ];
+
   // =============================================
   // END CONFIGURATION
   // =============================================
@@ -791,8 +797,8 @@
     row.className = 'day-row';
 
     const label = document.createElement('div');
-    label.className = 'day-label';
-    label.textContent = day;
+label.className = 'day-label';
+label.innerHTML = `<div>${day}</div><div style="font-size:0.7rem;font-weight:400;color:#888;margin-top:4px;text-transform:none;letter-spacing:0;line-height:1.4;">${location}</div>`;
 
     const slotsDiv = document.createElement('div');
     slotsDiv.className = 'slots';
