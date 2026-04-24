@@ -96,8 +96,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .hero-text {}
-
   .hero-eyebrow {
     font-size: 0.75rem;
     font-weight: 600;
@@ -199,7 +197,7 @@
     margin-top: 1px;
   }
 
-  /* SERVICES */
+  /* SECTIONS (Shared) */
   .section {
     max-width: 860px;
     margin: 0 auto;
@@ -227,13 +225,14 @@
     letter-spacing: -0.5px;
   }
 
-  .services-grid {
+  /* CARDS GRID (Services & Locations) */
+  .cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
 
-  .service-card {
+  .card-box {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -241,24 +240,24 @@
     transition: box-shadow 0.2s, transform 0.2s;
   }
 
-  .service-card:hover {
+  .card-box:hover {
     box-shadow: 0 6px 24px rgba(0,0,0,0.08);
     transform: translateY(-2px);
   }
 
-  .service-icon {
+  .card-icon {
     font-size: 1.4rem;
     margin-bottom: 10px;
   }
 
-  .service-name {
+  .card-name {
     font-weight: 600;
     font-size: 0.92rem;
     margin-bottom: 6px;
     color: var(--dark);
   }
 
-  .service-desc {
+  .card-desc {
     font-size: 0.8rem;
     color: var(--muted);
     line-height: 1.55;
@@ -345,8 +344,7 @@
     background: #FAFAF6;
     border-right: 1px solid #F3EFE8;
     display: flex;
-    align-items: flex-start;
-    padding-top: 22px;
+    align-items: center;
   }
 
   .slots {
@@ -401,15 +399,8 @@
     margin-left: auto;
   }
 
-  .badge-open {
-    background: var(--green);
-    color: white;
-  }
-
-  .badge-booked {
-    background: #C4AED8;
-    color: white;
-  }
+  .badge-open { background: var(--green); color: white; }
+  .badge-booked { background: #C4AED8; color: white; }
 
   /* MODAL */
   .modal-overlay {
@@ -423,9 +414,7 @@
     backdrop-filter: blur(4px);
   }
 
-  .modal-overlay.active {
-    display: flex;
-  }
+  .modal-overlay.active { display: flex; }
 
   .modal {
     background: white;
@@ -473,10 +462,8 @@
     gap: 10px;
   }
 
-  .btn-primary {
+  .btn-primary, .btn-secondary {
     flex: 1;
-    background: var(--dark);
-    color: white;
     border: none;
     padding: 12px;
     border-radius: 8px;
@@ -489,22 +476,10 @@
     text-align: center;
   }
 
+  .btn-primary { background: var(--dark); color: white; }
   .btn-primary:hover { background: #333; }
 
-  .btn-secondary {
-    flex: 1;
-    background: #F5F5F5;
-    color: var(--dark);
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    transition: background 0.15s;
-  }
-
+  .btn-secondary { background: #F5F5F5; color: var(--dark); }
   .btn-secondary:hover { background: #E8E8E8; }
 
   /* CANCEL SECTION */
@@ -558,10 +533,7 @@
     white-space: nowrap;
   }
 
-  .cancel-btn:hover {
-    background: #FFF0E0;
-    border-color: #C8A878;
-  }
+  .cancel-btn:hover { background: #FFF0E0; border-color: #C8A878; }
 
   /* FOOTER */
   footer {
@@ -582,10 +554,10 @@
       padding: 48px 20px 40px;
     }
     .hero-name { font-size: 2rem; }
-    .services-grid { grid-template-columns: 1fr; }
+    .cards-grid { grid-template-columns: 1fr; }
     .section, #schedule, .cancel-section { padding-left: 20px; padding-right: 20px; }
     .day-row { grid-template-columns: 90px 1fr; }
-    nav { padding: 0 20px; }
+    nav { padding: 0 20px; overflow-x: auto; white-space: nowrap; }
     .nav-links { gap: 16px; }
     .cancel-card { flex-direction: column; align-items: flex-start; }
   }
@@ -593,18 +565,17 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">Yarik Conrad</div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#locations">Locations</a></li>
     <li><a href="#schedule">Schedule</a></li>
     <li><a href="#cancel">Cancel</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="about">
   <div class="hero-text">
     <div class="hero-eyebrow">Private Tutoring · Cary, NC</div>
@@ -639,45 +610,44 @@
 
 <hr class="divider">
 
-<!-- SERVICES -->
 <section class="section" id="services">
   <div class="section-label">What I offer</div>
   <h2 class="section-title">Subjects & Rates</h2>
-  <div class="services-grid">
-    <div class="service-card">
-      <div class="service-icon">🔢</div>
-      <div class="service-name">Math Tutoring</div>
-      <div class="service-desc">Elementary through Algebra 2, Pre-Calc, and Math 7. Patient, step-by-step explanations.</div>
+  <div class="cards-grid">
+    <div class="card-box">
+      <div class="card-icon">🔢</div>
+      <div class="card-name">Math Tutoring</div>
+      <div class="card-desc">Elementary through Algebra 2, Pre-Calc, and Math 7. Patient, step-by-step explanations.</div>
       <div class="service-rate">$40/hr · $120/wk (3x)</div>
     </div>
-    <div class="service-card">
-      <div class="service-icon">📖</div>
-      <div class="service-name">English & Reading</div>
-      <div class="service-desc">Comprehension, literacy, structured reading support including intervention-level work.</div>
+    <div class="card-box">
+      <div class="card-icon">📖</div>
+      <div class="card-name">English & Reading</div>
+      <div class="card-desc">Comprehension, literacy, structured reading support including intervention-level work.</div>
       <div class="service-rate">$40/hr · $120/wk (3x)</div>
     </div>
-    <div class="service-card">
-      <div class="service-icon">🏫</div>
-      <div class="service-name">College Prep Math</div>
-      <div class="service-desc">Quantitative Literacy and foundational college math for community college students.</div>
+    <div class="card-box">
+      <div class="card-icon">🏫</div>
+      <div class="card-name">College Prep Math</div>
+      <div class="card-desc">Quantitative Literacy and foundational college math for community college students.</div>
       <div class="service-rate">$40/hr</div>
     </div>
-    <div class="service-card">
-      <div class="service-icon">✏️</div>
-      <div class="service-name">Multi-Subject</div>
-      <div class="service-desc">Combined math & English sessions for students needing support across both areas.</div>
+    <div class="card-box">
+      <div class="card-icon">✏️</div>
+      <div class="card-name">Multi-Subject</div>
+      <div class="card-desc">Combined math & English sessions for students needing support across both areas.</div>
       <div class="service-rate">$175/wk (5x daily)</div>
     </div>
-    <div class="service-card">
-      <div class="service-icon">💻</div>
-      <div class="service-name">Online Sessions</div>
-      <div class="service-desc">Virtual tutoring available for all subjects at a slightly reduced rate.</div>
+    <div class="card-box">
+      <div class="card-icon">💻</div>
+      <div class="card-name">Online Sessions</div>
+      <div class="card-desc">Virtual tutoring available for all subjects at a slightly reduced rate.</div>
       <div class="service-rate">$35/hr · $150/wk</div>
     </div>
-    <div class="service-card">
-      <div class="service-icon">🌱</div>
-      <div class="service-name">Literacy Intervention</div>
-      <div class="service-desc">Specialized structured literacy support for students with learning differences.</div>
+    <div class="card-box">
+      <div class="card-icon">🌱</div>
+      <div class="card-name">Literacy Intervention</div>
+      <div class="card-desc">Specialized structured literacy support for students with learning differences.</div>
       <div class="service-rate">$40/hr · $120/wk (3x)</div>
     </div>
   </div>
@@ -685,7 +655,30 @@
 
 <hr class="divider">
 
-<!-- SCHEDULE -->
+<section class="section" id="locations">
+  <div class="section-label">Where we meet</div>
+  <h2 class="section-title">Tutoring Locations</h2>
+  <div class="cards-grid">
+    <div class="card-box">
+      <div class="card-icon">☕</div>
+      <div class="card-name">Mondays & Wednesdays</div>
+      <div class="card-desc"><strong>Barnes & Noble</strong><br>Kildaire Farm Rd</div>
+    </div>
+    <div class="card-box">
+      <div class="card-icon">📚</div>
+      <div class="card-name">Tuesdays & Thursdays</div>
+      <div class="card-desc"><strong>Eva Perry Regional Library</strong><br>Apex</div>
+    </div>
+    <div class="card-box">
+      <div class="card-icon">📍</div>
+      <div class="card-name">Fridays</div>
+      <div class="card-desc"><strong>West Regional Library</strong><br>Cary</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
 <section id="schedule">
   <div class="section-label">Availability</div>
   <h2 class="section-title">Weekly Schedule</h2>
@@ -696,11 +689,9 @@
   </div>
 
   <div class="schedule-card" id="scheduleGrid">
-    <!-- Rendered by JS below -->
-  </div>
+    </div>
 </section>
 
-<!-- CANCEL SECTION -->
 <section class="cancel-section" id="cancel">
   <div class="cancel-card">
     <div class="cancel-text">
@@ -715,7 +706,6 @@
   <strong>Yarik Conrad</strong> · Private Tutoring · Cary, NC · <a href="sms:9196015952" style="color:inherit;">919-601-5952</a>
 </footer>
 
-<!-- BOOKING MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <div class="modal-title">Book This Slot</div>
@@ -737,10 +727,9 @@
   // =============================================
   const PHONE = "9196015952";
 
-const SCHEDULE = [
+  const SCHEDULE = [
     {
       day: "Monday",
-      location: "📍 Barnes & Noble — Kildaire Farm Rd",
       slots: [
         { time: "4:30 – 5:30 PM", open: true },
         { time: "5:45 – 6:45 PM", open: false },
@@ -749,7 +738,6 @@ const SCHEDULE = [
     },
     {
       day: "Tuesday",
-      location: "📍 Eva Perry Regional Library",
       slots: [
         { time: "4:30 – 5:30 PM", open: true },
         { time: "5:30 – 6:30 PM", open: false },
@@ -758,7 +746,6 @@ const SCHEDULE = [
     },
     {
       day: "Wednesday",
-      location: "📍 Barnes & Noble — Kildaire Farm Rd",
       slots: [
         { time: "4:30 – 5:30 PM", open: true },
         { time: "5:45 – 6:45 PM", open: false },
@@ -767,7 +754,6 @@ const SCHEDULE = [
     },
     {
       day: "Thursday",
-      location: "📍 Eva Perry Regional Library",
       slots: [
         { time: "4:30 – 5:30 PM", open: true },
         { time: "5:30 – 6:30 PM", open: false },
@@ -776,7 +762,6 @@ const SCHEDULE = [
     },
     {
       day: "Friday",
-      location: "📍 West Regional Library",
       slots: [
         { time: "4:30 – 5:30 PM", open: false },
         { time: "5:30 – 6:30 PM", open: true },
@@ -792,13 +777,14 @@ const SCHEDULE = [
   // Render schedule
   const grid = document.getElementById('scheduleGrid');
 
-  SCHEDULE.forEach(({ day, location, slots }) => {
+  SCHEDULE.forEach(({ day, slots }) => {
     const row = document.createElement('div');
     row.className = 'day-row';
 
     const label = document.createElement('div');
-label.className = 'day-label';
-label.innerHTML = `<div>${day}</div><div style="font-size:0.7rem;font-weight:400;color:#888;margin-top:4px;text-transform:none;letter-spacing:0;line-height:1.4;">${location}</div>`;
+    label.className = 'day-label';
+    // Reverted this back to just show the day, removing the crammed location
+    label.textContent = day;
 
     const slotsDiv = document.createElement('div');
     slotsDiv.className = 'slots';
