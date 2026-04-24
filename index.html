@@ -6,559 +6,118 @@
 <title>Yarik Conrad — Private Tutoring</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* =============================================
-     CONFIGURATION — EDIT SLOTS HERE ONLY
-     To mark a slot as booked: change open: true → open: false
-     To update your name/contact: edit the JS CONFIG below
-  ============================================= */
-
   :root {
-    --cream: #F9F6F0;
-    --dark: #1C1C1E;
-    --gold: #C9A84C;
-    --gold-light: #F0E4C0;
-    --green: #2D6B4E;
-    --green-light: #EAF4EF;
-    --muted: #888;
-    --border: #E8E2D6;
-    --card: #FFFFFF;
-    --booked-bg: #F5F0F8;
-    --booked-text: #7B5E9A;
+    --cream: #F9F6F0; --dark: #1C1C1E; --gold: #C9A84C; --gold-light: #F0E4C0;
+    --green: #2D6B4E; --green-light: #EAF4EF; --muted: #888; --border: #E8E2D6;
+    --card: #FFFFFF; --booked-bg: #F5F0F8; --booked-text: #7B5E9A;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--dark); min-height: 100vh; }
 
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--cream);
-    color: var(--dark);
-    min-height: 100vh;
-  }
-
-  /* NAV */
   nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(249,246,240,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(249,246,240,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between; height: 60px;
   }
-
   .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--dark);
-    letter-spacing: -0.3px;
+    font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600;
+    color: var(--dark); letter-spacing: -0.3px;
+    margin-right: 48px; /* Fix: push logo away from nav links */
   }
-
-  .nav-links {
-    display: flex;
-    gap: 28px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 0.83rem;
-    font-weight: 500;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.3px;
-    transition: color 0.2s;
-  }
-
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 0.83rem; font-weight: 500; color: var(--muted); text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s; }
   .nav-links a:hover { color: var(--dark); }
 
-  /* HERO */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
   .hero {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 80px 32px 60px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.1s;
+    max-width: 860px; margin: 0 auto; padding: 80px 32px 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    opacity: 0; animation: fadeUp 0.7s ease forwards; animation-delay: 0.1s;
   }
+  .hero-eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .hero-name { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; line-height: 1.1; color: var(--dark); margin-bottom: 6px; letter-spacing: -1px; }
+  .hero-aka { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: var(--muted); margin-bottom: 20px; }
+  .hero-desc { font-size: 0.95rem; font-weight: 300; color: #555; line-height: 1.75; margin-bottom: 28px; }
+  .cta-btn { display: inline-block; background: var(--dark); color: white; padding: 12px 26px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; text-decoration: none; letter-spacing: 0.3px; transition: background 0.2s, transform 0.1s; }
+  .cta-btn:hover { background: #333; transform: translateY(-1px); }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-eyebrow {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 14px;
-  }
-
-  .hero-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
-    font-weight: 700;
-    line-height: 1.1;
-    color: var(--dark);
-    margin-bottom: 6px;
-    letter-spacing: -1px;
-  }
-
-  .hero-aka {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--muted);
-    margin-bottom: 20px;
-  }
-
-  .hero-desc {
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: #555;
-    line-height: 1.75;
-    margin-bottom: 28px;
-  }
-
-  .cta-btn {
-    display: inline-block;
-    background: var(--dark);
-    color: white;
-    padding: 12px 26px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-decoration: none;
-    letter-spacing: 0.3px;
-    transition: background 0.2s, transform 0.1s;
-  }
-
-  .cta-btn:hover {
-    background: #333;
-    transform: translateY(-1px);
-  }
-
-  /* CREDENTIALS CARD */
-  .creds-card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 28px;
-    border: 1px solid var(--border);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-  }
-
-  .creds-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 18px;
-    color: var(--dark);
-  }
-
-  .cred-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 14px;
-    font-size: 0.87rem;
-    font-weight: 400;
-    color: #444;
-    line-height: 1.5;
-    opacity: 0;
-    animation: fadeUp 0.5s ease forwards;
-  }
-
+  .creds-card { background: var(--card); border-radius: 16px; padding: 28px; border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+  .creds-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; margin-bottom: 18px; color: var(--dark); }
+  .cred-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; font-size: 0.87rem; font-weight: 400; color: #444; line-height: 1.5; opacity: 0; animation: fadeUp 0.5s ease forwards; }
   .cred-item:nth-child(2) { animation-delay: 0.3s; }
   .cred-item:nth-child(3) { animation-delay: 0.45s; }
   .cred-item:nth-child(4) { animation-delay: 0.6s; }
   .cred-item:nth-child(5) { animation-delay: 0.75s; }
+  .cred-icon { width: 24px; height: 24px; background: var(--gold-light); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; margin-top: 1px; }
 
-  .cred-icon {
-    width: 24px;
-    height: 24px;
-    background: var(--gold-light);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
+  .section { max-width: 860px; margin: 0 auto; padding: 60px 32px; opacity: 0; animation: fadeUp 0.7s ease forwards; animation-delay: 0.3s; }
+  .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--dark); margin-bottom: 32px; letter-spacing: -0.5px; }
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px 20px; transition: box-shadow 0.2s, transform 0.2s; }
+  .card-box:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+  .card-name { font-weight: 600; font-size: 0.92rem; margin-bottom: 6px; color: var(--dark); }
+  .card-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+  .service-rate { margin-top: 12px; font-size: 0.78rem; font-weight: 600; color: var(--green); background: var(--green-light); display: inline-block; padding: 3px 9px; border-radius: 5px; }
 
-  /* SECTIONS (Shared) */
-  .section {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 60px 32px;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.3s;
-  }
+  .divider { max-width: 860px; margin: 0 auto; border: none; border-top: 1px solid var(--border); }
 
-  .section-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
+  #schedule { max-width: 860px; margin: 0 auto; padding: 60px 32px; opacity: 0; animation: fadeUp 0.7s ease forwards; animation-delay: 0.5s; }
+  .legend { display: flex; gap: 20px; margin-bottom: 12px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #555; font-weight: 500; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .dot-booked { background: #C4AED8; } .dot-open { background: #7EC4A0; }
+  .reset-note { font-size: 0.75rem; color: var(--muted); margin-bottom: 20px; font-style: italic; }
 
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.9rem;
-    font-weight: 700;
-    color: var(--dark);
-    margin-bottom: 32px;
-    letter-spacing: -0.5px;
-  }
-
-  /* CARDS GRID (Services & Locations) */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  .card-box {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 22px 20px;
-    transition: box-shadow 0.2s, transform 0.2s;
-  }
-
-  .card-box:hover {
-    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
-    transform: translateY(-2px);
-  }
-
-  .card-icon {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-  }
-
-  .card-name {
-    font-weight: 600;
-    font-size: 0.92rem;
-    margin-bottom: 6px;
-    color: var(--dark);
-  }
-
-  .card-desc {
-    font-size: 0.8rem;
-    color: var(--muted);
-    line-height: 1.55;
-  }
-
-  .service-rate {
-    margin-top: 12px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--green);
-    background: var(--green-light);
-    display: inline-block;
-    padding: 3px 9px;
-    border-radius: 5px;
-  }
-
-  /* DIVIDER */
-  .divider {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 32px;
-    border: none;
-    border-top: 1px solid var(--border);
-  }
-
-  /* SCHEDULE */
-  #schedule {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 60px 32px;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.5s;
-  }
-
-  .legend {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.8rem;
-    color: #555;
-    font-weight: 500;
-  }
-
-  .legend-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 3px;
-  }
-
-  .dot-booked { background: #C4AED8; }
-  .dot-open { background: #7EC4A0; }
-
-  .schedule-card {
-    background: var(--card);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
-    border: 1px solid var(--border);
-  }
-
-  .day-row {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    border-bottom: 1px solid #F3EFE8;
-  }
-
+  .schedule-card { background: var(--card); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,0.06); border: 1px solid var(--border); }
+  .day-row { display: grid; grid-template-columns: 72px 1fr; border-bottom: 1px solid #F3EFE8; }
   .day-row:last-child { border-bottom: none; }
-
-  .day-label {
-    padding: 20px 16px;
-    font-weight: 600;
-    font-size: 0.82rem;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--dark);
-    background: #FAFAF6;
-    border-right: 1px solid #F3EFE8;
-    display: flex;
-    align-items: center;
-  }
-
-  .slots {
-    padding: 14px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .slot {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 11px 14px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all 0.15s;
-  }
-
-  .slot-booked {
-    background: var(--booked-bg);
-    color: var(--booked-text);
-    text-decoration: line-through;
-    text-decoration-color: #C4AED8;
-    opacity: 0.75;
-    cursor: not-allowed;
-  }
-
-  .slot-open {
-    background: var(--green-light);
-    color: var(--green);
-    cursor: pointer;
-    border: 1px solid transparent;
-  }
-
-  .slot-open:hover {
-    background: #D4ECDF;
-    border-color: #A8D8BF;
-    transform: translateX(3px);
-  }
-
+  .day-label { padding: 16px 12px; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.6px; text-transform: uppercase; color: var(--dark); background: #FAFAF6; border-right: 1px solid #F3EFE8; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .slots { padding: 10px 14px; display: flex; flex-direction: column; gap: 7px; }
+  .slot { display: flex; align-items: center; gap: 10px; padding: 10px 13px; border-radius: 8px; font-size: 0.84rem; font-weight: 500; transition: all 0.15s; }
+  .slot-booked { background: var(--booked-bg); color: var(--booked-text); text-decoration: line-through; text-decoration-color: #C4AED8; opacity: 0.75; cursor: not-allowed; }
+  .slot-open { background: var(--green-light); color: var(--green); cursor: pointer; border: 1px solid transparent; }
+  .slot-open:hover { background: #D4ECDF; border-color: #A8D8BF; transform: translateX(3px); }
   .slot-text { flex: 1; }
-
-  .slot-badge {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 4px;
-    margin-left: auto;
-  }
-
+  .slot-badge { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 7px; border-radius: 4px; margin-left: auto; white-space: nowrap; }
   .badge-open { background: var(--green); color: white; }
   .badge-booked { background: #C4AED8; color: white; }
 
-  /* MODAL */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(4px);
-  }
-
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
   .modal-overlay.active { display: flex; }
+  .modal { background: white; border-radius: 16px; padding: 36px; max-width: 400px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); animation: modalIn 0.25s ease; }
+  @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 8px; color: var(--dark); }
+  .modal-slot { font-size: 0.88rem; color: var(--green); font-weight: 600; background: var(--green-light); padding: 6px 12px; border-radius: 6px; display: inline-block; margin-bottom: 18px; }
+  .modal-body { font-size: 0.88rem; color: #555; line-height: 1.65; margin-bottom: 24px; }
+  .modal-actions { display: flex; gap: 10px; }
+  .btn-primary, .btn-secondary { flex: 1; border: none; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: 'Nunito', sans-serif; transition: background 0.15s; text-decoration: none; text-align: center; display: block; }
+  .btn-primary { background: var(--dark); color: white; } .btn-primary:hover { background: #333; }
+  .btn-secondary { background: #F5F5F5; color: var(--dark); } .btn-secondary:hover { background: #E8E8E8; }
 
-  .modal {
-    background: white;
-    border-radius: 16px;
-    padding: 36px;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-    animation: modalIn 0.25s ease;
-  }
-
-  @keyframes modalIn {
-    from { opacity: 0; transform: scale(0.95) translateY(10px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
-  }
-
-  .modal-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--dark);
-  }
-
-  .modal-slot {
-    font-size: 0.88rem;
-    color: var(--green);
-    font-weight: 600;
-    background: var(--green-light);
-    padding: 6px 12px;
-    border-radius: 6px;
-    display: inline-block;
-    margin-bottom: 18px;
-  }
-
-  .modal-body {
-    font-size: 0.88rem;
-    color: #555;
-    line-height: 1.65;
-    margin-bottom: 24px;
-  }
-
-  .modal-actions {
-    display: flex;
-    gap: 10px;
-  }
-
-  .btn-primary, .btn-secondary {
-    flex: 1;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    transition: background 0.15s;
-    text-decoration: none;
-    text-align: center;
-  }
-
-  .btn-primary { background: var(--dark); color: white; }
-  .btn-primary:hover { background: #333; }
-
-  .btn-secondary { background: #F5F5F5; color: var(--dark); }
-  .btn-secondary:hover { background: #E8E8E8; }
-
-  /* CANCEL SECTION */
-  .cancel-section {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 32px 60px;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.6s;
-  }
-
-  .cancel-card {
-    background: #FFF8F0;
-    border: 1px solid #F0E0C8;
-    border-radius: 12px;
-    padding: 24px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  .cancel-text h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: var(--dark);
-  }
-
-  .cancel-text p {
-    font-size: 0.82rem;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  .cancel-btn {
-    background: white;
-    border: 1px solid #E0C8A8;
-    color: #A0622A;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 0.83rem;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    text-decoration: none;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-
+  .cancel-section { max-width: 860px; margin: 0 auto; padding: 0 32px 60px; opacity: 0; animation: fadeUp 0.7s ease forwards; animation-delay: 0.6s; }
+  .cancel-card { background: #FFF8F0; border: 1px solid #F0E0C8; border-radius: 12px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .cancel-text h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; margin-bottom: 4px; color: var(--dark); }
+  .cancel-text p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+  .cancel-btn { background: white; border: 1px solid #E0C8A8; color: #A0622A; padding: 10px 20px; border-radius: 8px; font-size: 0.83rem; font-weight: 600; cursor: pointer; font-family: 'Nunito', sans-serif; text-decoration: none; transition: all 0.15s; white-space: nowrap; }
   .cancel-btn:hover { background: #FFF0E0; border-color: #C8A878; }
 
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 28px 32px;
-    text-align: center;
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
-
+  footer { border-top: 1px solid var(--border); padding: 28px 32px; text-align: center; font-size: 0.78rem; color: var(--muted); }
   footer strong { color: #555; }
 
-  /* RESPONSIVE */
   @media (max-width: 640px) {
-    .hero {
-      grid-template-columns: 1fr;
-      gap: 32px;
-      padding: 48px 20px 40px;
-    }
+    .hero { grid-template-columns: 1fr; gap: 32px; padding: 48px 20px 40px; }
     .hero-name { font-size: 2rem; }
     .cards-grid { grid-template-columns: 1fr; }
     .section, #schedule, .cancel-section { padding-left: 20px; padding-right: 20px; }
-    .day-row { grid-template-columns: 90px 1fr; }
-    nav { padding: 0 20px; overflow-x: auto; white-space: nowrap; }
-    .nav-links { gap: 16px; }
+    nav { padding: 0 16px; }
+    .nav-logo { margin-right: 20px; font-size: 0.95rem; }
+    .nav-links { gap: 12px; }
+    .nav-links a { font-size: 0.75rem; }
     .cancel-card { flex-direction: column; align-items: flex-start; }
   }
 </style>
@@ -576,7 +135,9 @@
   </ul>
 </nav>
 
-<section class="hero" id="about">
+<div id="about" style="padding-top: 1px;"></div>
+
+<section class="hero">
   <div class="hero-text">
     <div class="hero-eyebrow">Private Tutoring · Cary, NC</div>
     <h1 class="hero-name">Yaroslav Conrad</h1>
@@ -586,25 +147,12 @@
     </p>
     <a href="#schedule" class="cta-btn">View Open Slots →</a>
   </div>
-
   <div class="creds-card">
     <div class="creds-title">Why work with me</div>
-    <div class="cred-item">
-      <div class="cred-icon">🏅</div>
-      <span>Ranked <strong>2nd in my class</strong> at Cary High School</span>
-    </div>
-    <div class="cred-item">
-      <div class="cred-icon">📊</div>
-      <span><strong>4.66 GPA</strong> — consistently high academic performance</span>
-    </div>
-    <div class="cred-item">
-      <div class="cred-icon">📚</div>
-      <span><strong>3+ years</strong> of hands-on tutoring experience with real students</span>
-    </div>
-    <div class="cred-item">
-      <div class="cred-icon">🎓</div>
-      <span>College credits equivalent to a <strong>college junior</strong></span>
-    </div>
+    <div class="cred-item"><div class="cred-icon">🏅</div><span>Ranked <strong>2nd in my class</strong> at Cary High School</span></div>
+    <div class="cred-item"><div class="cred-icon">📊</div><span><strong>4.66 GPA</strong> — consistently high academic performance</span></div>
+    <div class="cred-item"><div class="cred-icon">📚</div><span><strong>3+ years</strong> of hands-on tutoring experience with real students</span></div>
+    <div class="cred-item"><div class="cred-icon">🎓</div><span>College credits equivalent to a <strong>college junior</strong></span></div>
   </div>
 </section>
 
@@ -617,38 +165,20 @@
     <div class="card-box">
       <div class="card-icon">🔢</div>
       <div class="card-name">Math Tutoring</div>
-      <div class="card-desc">Elementary through Algebra 2, Pre-Calc, and Math 7. Patient, step-by-step explanations.</div>
-      <div class="service-rate">$40/hr · $120/wk (3x)</div>
+      <div class="card-desc">Elementary through Algebra 2, Pre-Calc, Math 7, and college-level Quantitative Literacy. Rate depends on level.</div>
+      <div class="service-rate">$30 – $40/hr</div>
     </div>
     <div class="card-box">
       <div class="card-icon">📖</div>
       <div class="card-name">English & Reading</div>
-      <div class="card-desc">Comprehension, literacy, structured reading support including intervention-level work.</div>
-      <div class="service-rate">$40/hr · $120/wk (3x)</div>
-    </div>
-    <div class="card-box">
-      <div class="card-icon">🏫</div>
-      <div class="card-name">College Prep Math</div>
-      <div class="card-desc">Quantitative Literacy and foundational college math for community college students.</div>
+      <div class="card-desc">Comprehension, vocabulary, writing, and structured reading support for elementary through high school students.</div>
       <div class="service-rate">$40/hr</div>
-    </div>
-    <div class="card-box">
-      <div class="card-icon">✏️</div>
-      <div class="card-name">Multi-Subject</div>
-      <div class="card-desc">Combined math & English sessions for students needing support across both areas.</div>
-      <div class="service-rate">$175/wk (5x daily)</div>
     </div>
     <div class="card-box">
       <div class="card-icon">💻</div>
       <div class="card-name">Online Sessions</div>
-      <div class="card-desc">Virtual tutoring available for all subjects at a slightly reduced rate.</div>
-      <div class="service-rate">$35/hr · $150/wk</div>
-    </div>
-    <div class="card-box">
-      <div class="card-icon">🌱</div>
-      <div class="card-name">Literacy Intervention</div>
-      <div class="card-desc">Specialized structured literacy support for students with learning differences.</div>
-      <div class="service-rate">$40/hr · $120/wk (3x)</div>
+      <div class="card-desc">Virtual tutoring for all subjects with flexible scheduling — reach out to find a time that works for you.</div>
+      <div class="service-rate">$25 – $35/hr</div>
     </div>
   </div>
 </section>
@@ -661,17 +191,17 @@
   <div class="cards-grid">
     <div class="card-box">
       <div class="card-icon">☕</div>
-      <div class="card-name">Mondays & Wednesdays</div>
-      <div class="card-desc"><strong>Barnes & Noble</strong><br>Kildaire Farm Rd</div>
+      <div class="card-name">Mon & Wed</div>
+      <div class="card-desc"><strong>Barnes & Noble</strong><br>Kildaire Farm Rd, Cary</div>
     </div>
     <div class="card-box">
       <div class="card-icon">📚</div>
-      <div class="card-name">Tuesdays & Thursdays</div>
+      <div class="card-name">Tue & Thu</div>
       <div class="card-desc"><strong>Eva Perry Regional Library</strong><br>Apex</div>
     </div>
     <div class="card-box">
       <div class="card-icon">📍</div>
-      <div class="card-name">Fridays</div>
+      <div class="card-name">Fri</div>
       <div class="card-desc"><strong>West Regional Library</strong><br>Cary</div>
     </div>
   </div>
@@ -682,14 +212,12 @@
 <section id="schedule">
   <div class="section-label">Availability</div>
   <h2 class="section-title">Weekly Schedule</h2>
-
   <div class="legend">
     <div class="legend-item"><div class="legend-dot dot-booked"></div> Already booked</div>
     <div class="legend-item"><div class="legend-dot dot-open"></div> Available — click to book</div>
   </div>
-
-  <div class="schedule-card" id="scheduleGrid">
-    </div>
+  <p class="reset-note">🔄 Open slots reset automatically each Monday. Long-term bookings remain held.</p>
+  <div class="schedule-card" id="scheduleGrid"></div>
 </section>
 
 <section class="cancel-section" id="cancel">
@@ -710,9 +238,7 @@
   <div class="modal">
     <div class="modal-title">Book This Slot</div>
     <div class="modal-slot" id="modalSlotLabel"></div>
-    <div class="modal-body">
-      Tapping below will open a pre-filled text message to Yarik. He'll confirm your booking within a few hours.
-    </div>
+    <div class="modal-body">Tapping below will open a pre-filled text message to Yarik. He'll confirm your booking within a few hours.</div>
     <div class="modal-actions">
       <a href="#" class="btn-primary" id="modalTextBtn">📱 Text to Book</a>
       <button class="btn-secondary" onclick="closeModal()">Cancel</button>
@@ -721,58 +247,73 @@
 </div>
 
 <script>
-  // =============================================
-  // CONFIGURATION — EDIT THIS SECTION TO MANAGE YOUR SCHEDULE
-  // open: true = available, open: false = booked
-  // =============================================
   const PHONE = "9196015952";
 
+  // =============================================
+  // CONFIGURATION
+  // permanent: true  = never resets (long-term client)
+  // permanent: false = resets to open every Monday
+  // To book a one-time slot: change open: true → false
+  // =============================================
   const SCHEDULE = [
-    {
-      day: "Monday",
-      slots: [
-        { time: "4:30 – 5:30 PM", open: true },
-        { time: "5:45 – 6:45 PM", open: false },
-        { time: "7:00 – 8:00 PM", open: true },
-      ]
-    },
-    {
-      day: "Tuesday",
-      slots: [
-        { time: "4:30 – 5:30 PM", open: true },
-        { time: "5:30 – 6:30 PM", open: false },
-        { time: "6:30 – 7:30 PM", open: true },
-      ]
-    },
-    {
-      day: "Wednesday",
-      slots: [
-        { time: "4:30 – 5:30 PM", open: true },
-        { time: "5:45 – 6:45 PM", open: false },
-        { time: "7:00 – 8:00 PM", open: true },
-      ]
-    },
-    {
-      day: "Thursday",
-      slots: [
-        { time: "4:30 – 5:30 PM", open: true },
-        { time: "5:30 – 6:30 PM", open: false },
-        { time: "6:30 – 7:30 PM", open: true },
-      ]
-    },
-    {
-      day: "Friday",
-      slots: [
-        { time: "4:30 – 5:30 PM", open: false },
-        { time: "5:30 – 6:30 PM", open: true },
-        { time: "6:30 – 7:30 PM", open: false },
-      ]
-    },
+    { day: "Mon", slots: [
+      { time: "4:30 – 5:30 PM", open: true,  permanent: false },
+      { time: "5:45 – 6:45 PM", open: false, permanent: true  }, // Nadia Chavez
+      { time: "7:00 – 8:00 PM", open: true,  permanent: false },
+    ]},
+    { day: "Tue", slots: [
+      { time: "4:30 – 5:30 PM", open: true,  permanent: false },
+      { time: "5:30 – 6:30 PM", open: false, permanent: true  }, // Ashley Keith
+      { time: "6:30 – 7:30 PM", open: true,  permanent: false },
+    ]},
+    { day: "Wed", slots: [
+      { time: "4:30 – 5:30 PM", open: true,  permanent: false },
+      { time: "5:45 – 6:45 PM", open: false, permanent: true  }, // Nadia Chavez
+      { time: "7:00 – 8:00 PM", open: true,  permanent: false },
+    ]},
+    { day: "Thu", slots: [
+      { time: "4:30 – 5:30 PM", open: true,  permanent: false },
+      { time: "5:30 – 6:30 PM", open: false, permanent: true  }, // Ashley Keith
+      { time: "6:30 – 7:30 PM", open: true,  permanent: false },
+    ]},
+    { day: "Fri", slots: [
+      { time: "4:30 – 5:30 PM", open: false, permanent: true  }, // Geet
+      { time: "5:30 – 6:30 PM", open: true,  permanent: false },
+      { time: "6:30 – 7:30 PM", open: false, permanent: true  }, // Hafida
+    ]},
   ];
-
   // =============================================
   // END CONFIGURATION
   // =============================================
+
+  // Weekly auto-reset logic
+  function getWeekKey() {
+    const now = new Date();
+    const startOfYear = new Date(now.getFullYear(), 0, 1);
+    const weekNum = Math.floor((now - startOfYear) / (7 * 24 * 60 * 60 * 1000));
+    return `${now.getFullYear()}-W${weekNum}`;
+  }
+
+  function loadSlotStates() {
+    const currentWeek = getWeekKey();
+    const stored = JSON.parse(localStorage.getItem('slotStates') || '{}');
+    // If it's a new week, wipe non-permanent overrides
+    if (stored.week !== currentWeek) {
+      localStorage.setItem('slotStates', JSON.stringify({ week: currentWeek, slots: {} }));
+      return {};
+    }
+    return stored.slots || {};
+  }
+
+  function saveSlotState(key, value) {
+    const currentWeek = getWeekKey();
+    const stored = JSON.parse(localStorage.getItem('slotStates') || '{}');
+    const slots = stored.week === currentWeek ? (stored.slots || {}) : {};
+    slots[key] = value;
+    localStorage.setItem('slotStates', JSON.stringify({ week: currentWeek, slots }));
+  }
+
+  const slotStates = loadSlotStates();
 
   // Render schedule
   const grid = document.getElementById('scheduleGrid');
@@ -783,18 +324,21 @@
 
     const label = document.createElement('div');
     label.className = 'day-label';
-    // Reverted this back to just show the day, removing the crammed location
     label.textContent = day;
 
     const slotsDiv = document.createElement('div');
     slotsDiv.className = 'slots';
 
-    slots.forEach(({ time, open }) => {
+    slots.forEach(({ time, open: defaultOpen, permanent }) => {
+      const key = `${day}-${time}`;
+      // Permanent slots always use their default. Non-permanent check localStorage.
+      const isOpen = permanent ? defaultOpen : (slotStates[key] !== undefined ? slotStates[key] : defaultOpen);
+
       const slot = document.createElement('div');
-      slot.className = `slot ${open ? 'slot-open' : 'slot-booked'}`;
+      slot.className = `slot ${isOpen ? 'slot-open' : 'slot-booked'}`;
 
       const icon = document.createElement('span');
-      icon.textContent = open ? '✓' : '✕';
+      icon.textContent = isOpen ? '✓' : '✕';
       icon.style.flexShrink = '0';
 
       const text = document.createElement('span');
@@ -802,15 +346,17 @@
       text.textContent = time;
 
       const badge = document.createElement('span');
-      badge.className = `slot-badge ${open ? 'badge-open' : 'badge-booked'}`;
-      badge.textContent = open ? 'Open' : 'Booked';
+      badge.className = `slot-badge ${isOpen ? 'badge-open' : 'badge-booked'}`;
+      badge.textContent = isOpen ? 'Open' : 'Booked';
 
       slot.appendChild(icon);
       slot.appendChild(text);
       slot.appendChild(badge);
 
-      if (open) {
-        slot.addEventListener('click', () => openModal(`${day} · ${time}`));
+      if (isOpen && !permanent) {
+        slot.addEventListener('click', () => openModal(`${day} · ${time}`, key, slot, icon, badge));
+      } else if (isOpen) {
+        slot.addEventListener('click', () => openModal(`${day} · ${time}`, null, null, null, null));
       }
 
       slotsDiv.appendChild(slot);
@@ -821,11 +367,26 @@
     grid.appendChild(row);
   });
 
-  // Modal
-  function openModal(slotLabel) {
+  function openModal(slotLabel, key, slotEl, iconEl, badgeEl) {
     document.getElementById('modalSlotLabel').textContent = slotLabel;
     const msg = encodeURIComponent(`Hi Yarik! I'd like to book the ${slotLabel} slot.`);
-    document.getElementById('modalTextBtn').href = `sms:${PHONE}&body=${msg}`;
+    const btn = document.getElementById('modalTextBtn');
+    btn.href = `sms:${PHONE}&body=${msg}`;
+
+    // When they tap text to book, mark slot as booked in UI and storage
+    btn.onclick = () => {
+      if (key && slotEl) {
+        slotEl.className = 'slot slot-booked';
+        iconEl.textContent = '✕';
+        badgeEl.className = 'slot-badge badge-booked';
+        badgeEl.textContent = 'Booked';
+        slotEl.style.cursor = 'not-allowed';
+        slotEl.replaceWith(slotEl.cloneNode(true)); // remove click listener
+        saveSlotState(key, false);
+      }
+      closeModal();
+    };
+
     document.getElementById('modalOverlay').classList.add('active');
   }
 
