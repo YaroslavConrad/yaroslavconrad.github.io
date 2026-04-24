@@ -792,7 +792,7 @@ const SCHEDULE = [
   // Render schedule
   const grid = document.getElementById('scheduleGrid');
 
-  SCHEDULE.forEach(({ day, slots }) => {
+  SCHEDULE.forEach(({ day, location, slots }) => {
     const row = document.createElement('div');
     row.className = 'day-row';
 
