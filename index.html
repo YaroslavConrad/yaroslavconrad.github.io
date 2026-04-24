@@ -24,7 +24,7 @@
   .nav-logo {
     font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600;
     color: var(--dark); letter-spacing: -0.3px;
-    margin-right: 48px; /* Fix: push logo away from nav links */
+    margin-right: 48px;
   }
   .nav-links { display: flex; gap: 28px; list-style: none; }
   .nav-links a { font-size: 0.83rem; font-weight: 500; color: var(--muted); text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s; }
@@ -57,12 +57,17 @@
   .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
   .section-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--dark); margin-bottom: 32px; letter-spacing: -0.5px; }
   .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .card-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px 20px; transition: box-shadow 0.2s, transform 0.2s; }
+  
+  /* Link-compatible card-box styling */
+  .card-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px 20px; transition: box-shadow 0.2s, transform 0.2s; text-decoration: none; color: inherit; display: block; }
   .card-box:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
   .card-icon { font-size: 1.4rem; margin-bottom: 10px; }
   .card-name { font-weight: 600; font-size: 0.92rem; margin-bottom: 6px; color: var(--dark); }
   .card-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
   .service-rate { margin-top: 12px; font-size: 0.78rem; font-weight: 600; color: var(--green); background: var(--green-light); display: inline-block; padding: 3px 9px; border-radius: 5px; }
+
+  /* Specifically center text for location cards */
+  #locations .card-box { text-align: center; }
 
   .divider { max-width: 860px; margin: 0 auto; border: none; border-top: 1px solid var(--border); }
 
@@ -189,21 +194,21 @@
   <div class="section-label">Where we meet</div>
   <h2 class="section-title">Tutoring Locations</h2>
   <div class="cards-grid">
-    <div class="card-box">
+    <a href="https://maps.google.com/?q=Barnes+%26+Noble+Kildaire+Farm+Rd+Cary+NC" target="_blank" rel="noopener" class="card-box">
       <div class="card-icon">☕</div>
       <div class="card-name">Mon & Wed</div>
       <div class="card-desc"><strong>Barnes & Noble</strong><br>Kildaire Farm Rd, Cary</div>
-    </div>
-    <div class="card-box">
+    </a>
+    <a href="https://maps.google.com/?q=Eva+Perry+Regional+Library+Apex+NC" target="_blank" rel="noopener" class="card-box">
       <div class="card-icon">📚</div>
       <div class="card-name">Tue & Thu</div>
       <div class="card-desc"><strong>Eva Perry Regional Library</strong><br>Apex</div>
-    </div>
-    <div class="card-box">
+    </a>
+    <a href="https://maps.google.com/?q=West+Regional+Library+Cary+NC" target="_blank" rel="noopener" class="card-box">
       <div class="card-icon">📍</div>
       <div class="card-name">Fri</div>
       <div class="card-desc"><strong>West Regional Library</strong><br>Cary</div>
-    </div>
+    </a>
   </div>
 </section>
 
