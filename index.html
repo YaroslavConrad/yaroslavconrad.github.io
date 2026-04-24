@@ -9,7 +9,7 @@
   :root {
     --cream: #F9F6F0; --dark: #1C1C1E; --gold: #C9A84C; --gold-light: #F0E4C0;
     --green: #2D6B4E; --green-light: #EAF4EF; --muted: #888; --border: #E8E2D6;
-    --card: #FFFFFF; --booked-bg: #F5F0F8; --booked-text: #7B5E9A;
+    --card: #FFFFFF;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -58,7 +58,6 @@
   .section-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--dark); margin-bottom: 32px; letter-spacing: -0.5px; }
   .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   
-  /* Link-compatible card-box styling */
   .card-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px 20px; transition: box-shadow 0.2s, transform 0.2s; text-decoration: none; color: inherit; display: block; }
   .card-box:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
   .card-icon { font-size: 1.4rem; margin-bottom: 10px; }
@@ -66,16 +65,13 @@
   .card-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
   .service-rate { margin-top: 12px; font-size: 0.78rem; font-weight: 600; color: var(--green); background: var(--green-light); display: inline-block; padding: 3px 9px; border-radius: 5px; }
 
-  /* Specifically center text for location cards */
   #locations .card-box { text-align: center; }
 
   .divider { max-width: 860px; margin: 0 auto; border: none; border-top: 1px solid var(--border); }
 
   #schedule { max-width: 860px; margin: 0 auto; padding: 60px 32px; opacity: 0; animation: fadeUp 0.7s ease forwards; animation-delay: 0.5s; }
-  .legend { display: flex; gap: 20px; margin-bottom: 12px; flex-wrap: wrap; }
-  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #555; font-weight: 500; }
-  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
-  .dot-booked { background: #C4AED8; } .dot-open { background: #7EC4A0; }
+  
+  /* Removed the legend since we only show open slots now */
   .reset-note { font-size: 0.75rem; color: var(--muted); margin-bottom: 20px; font-style: italic; }
 
   .schedule-card { background: var(--card); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,0.06); border: 1px solid var(--border); }
@@ -83,14 +79,13 @@
   .day-row:last-child { border-bottom: none; }
   .day-label { padding: 16px 12px; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.6px; text-transform: uppercase; color: var(--dark); background: #FAFAF6; border-right: 1px solid #F3EFE8; display: flex; align-items: center; justify-content: center; text-align: center; }
   .slots { padding: 10px 14px; display: flex; flex-direction: column; gap: 7px; }
-  .slot { display: flex; align-items: center; gap: 10px; padding: 10px 13px; border-radius: 8px; font-size: 0.84rem; font-weight: 500; transition: all 0.15s; }
-  .slot-booked { background: var(--booked-bg); color: var(--booked-text); text-decoration: line-through; text-decoration-color: #C4AED8; opacity: 0.75; cursor: not-allowed; }
-  .slot-open { background: var(--green-light); color: var(--green); cursor: pointer; border: 1px solid transparent; }
-  .slot-open:hover { background: #D4ECDF; border-color: #A8D8BF; transform: translateX(3px); }
+  
+  /* Simplified slot styles - only open slots are shown */
+  .slot { display: flex; align-items: center; gap: 10px; padding: 10px 13px; border-radius: 8px; font-size: 0.84rem; font-weight: 500; transition: all 0.15s; background: var(--green-light); color: var(--green); cursor: pointer; border: 1px solid transparent; }
+  .slot:hover { background: #D4ECDF; border-color: #A8D8BF; transform: translateX(3px); }
   .slot-text { flex: 1; }
-  .slot-badge { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 7px; border-radius: 4px; margin-left: auto; white-space: nowrap; }
-  .badge-open { background: var(--green); color: white; }
-  .badge-booked { background: #C4AED8; color: white; }
+  .slot-badge { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 7px; border-radius: 4px; margin-left: auto; white-space: nowrap; background: var(--green); color: white; }
+  .fully-booked-msg { font-size: 0.85rem; color: var(--muted); font-style: italic; padding: 10px 14px; display: flex; align-items: center; height: 100%; }
 
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
   .modal-overlay.active { display: flex; }
@@ -217,11 +212,7 @@
 <section id="schedule">
   <div class="section-label">Availability</div>
   <h2 class="section-title">Weekly Schedule</h2>
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot dot-booked"></div> Already booked</div>
-    <div class="legend-item"><div class="legend-dot dot-open"></div> Available — click to book</div>
-  </div>
-  <p class="reset-note">🔄 Open slots reset automatically each Monday. Long-term bookings remain held.</p>
+  <p class="reset-note">🔄 Booked slots disappear from the list. Open slots reset automatically each Monday.</p>
   <div class="schedule-card" id="scheduleGrid"></div>
 </section>
 
@@ -229,7 +220,7 @@
   <div class="cancel-card">
     <div class="cancel-text">
       <h3>Need to cancel or reschedule?</h3>
-      <p>Please give at least 24 hours notice when possible. Text me directly and we'll find a new time from the open slots above.</p>
+      <p>Please give at least 24 hours notice when possible. Text me directly and we'll find a new time.</p>
     </div>
     <a href="sms:9196015952&body=Hi Yarik, I need to cancel/reschedule my session." class="cancel-btn">📱 Text to Cancel</a>
   </div>
@@ -252,33 +243,37 @@
 </div>
 
 <script>
-  const PHONE = "9196015952";
-
-  // =============================================
-  // CONFIGURATION
-  // permanent: true  = never resets (long-term client)
-  // permanent: false = resets to open every Monday
-  // To book a one-time slot: change open: true → false
-  // =============================================
+  // =========================================================================
+  // 🛑 EASY SCHEDULE UPDATER 🛑
+  // =========================================================================
+  // HOW IT WORKS:
+  // - open: true   => The slot is visible and someone can book it.
+  // - open: false  => The slot is BOOKED/HIDDEN. It will NOT show on the site.
+  // 
+  // - permanent: false => If a student books this slot, it hides. Next Monday, 
+  //                       it will automatically reset and become open again.
+  // - permanent: true  => This is a long-term client (like Ashley or Geet). 
+  //                       It will stay hidden permanently, even on Mondays.
+  // =========================================================================
   const SCHEDULE = [
     { day: "Mon", slots: [
       { time: "4:30 – 5:30 PM", open: true,  permanent: false },
-      { time: "5:45 – 6:45 PM", open: false, permanent: true  }, // Nadia Chavez
+      { time: "5:45 – 6:45 PM", open: false, permanent: true  }, // Nadia
       { time: "7:00 – 8:00 PM", open: true,  permanent: false },
     ]},
     { day: "Tue", slots: [
       { time: "4:30 – 5:30 PM", open: true,  permanent: false },
-      { time: "5:30 – 6:30 PM", open: false, permanent: true  }, // Ashley Keith
+      { time: "5:30 – 6:30 PM", open: false, permanent: true  }, // Ashley
       { time: "6:30 – 7:30 PM", open: true,  permanent: false },
     ]},
     { day: "Wed", slots: [
       { time: "4:30 – 5:30 PM", open: true,  permanent: false },
-      { time: "5:45 – 6:45 PM", open: false, permanent: true  }, // Nadia Chavez
+      { time: "5:45 – 6:45 PM", open: false, permanent: true  }, // Nadia
       { time: "7:00 – 8:00 PM", open: true,  permanent: false },
     ]},
     { day: "Thu", slots: [
       { time: "4:30 – 5:30 PM", open: true,  permanent: false },
-      { time: "5:30 – 6:30 PM", open: false, permanent: true  }, // Ashley Keith
+      { time: "5:30 – 6:30 PM", open: false, permanent: true  }, // Ashley
       { time: "6:30 – 7:30 PM", open: true,  permanent: false },
     ]},
     { day: "Fri", slots: [
@@ -287,9 +282,10 @@
       { time: "6:30 – 7:30 PM", open: false, permanent: true  }, // Hafida
     ]},
   ];
-  // =============================================
-  // END CONFIGURATION
-  // =============================================
+  const PHONE = "9196015952";
+  // =========================================================================
+  // END SCHEDULE UPDATER — Do not edit below unless changing core features
+  // =========================================================================
 
   // Weekly auto-reset logic
   function getWeekKey() {
@@ -302,7 +298,6 @@
   function loadSlotStates() {
     const currentWeek = getWeekKey();
     const stored = JSON.parse(localStorage.getItem('slotStates') || '{}');
-    // If it's a new week, wipe non-permanent overrides
     if (stored.week !== currentWeek) {
       localStorage.setItem('slotStates', JSON.stringify({ week: currentWeek, slots: {} }));
       return {};
@@ -319,10 +314,9 @@
   }
 
   const slotStates = loadSlotStates();
-
-  // Render schedule
   const grid = document.getElementById('scheduleGrid');
 
+  // Render schedule
   SCHEDULE.forEach(({ day, slots }) => {
     const row = document.createElement('div');
     row.className = 'day-row';
@@ -333,17 +327,23 @@
 
     const slotsDiv = document.createElement('div');
     slotsDiv.className = 'slots';
+    
+    let visibleSlotCount = 0;
 
     slots.forEach(({ time, open: defaultOpen, permanent }) => {
       const key = `${day}-${time}`;
-      // Permanent slots always use their default. Non-permanent check localStorage.
       const isOpen = permanent ? defaultOpen : (slotStates[key] !== undefined ? slotStates[key] : defaultOpen);
 
+      // CRITICAL CHANGE: If slot is booked, we skip rendering it entirely.
+      if (!isOpen) return;
+
+      visibleSlotCount++;
+
       const slot = document.createElement('div');
-      slot.className = `slot ${isOpen ? 'slot-open' : 'slot-booked'}`;
+      slot.className = 'slot';
 
       const icon = document.createElement('span');
-      icon.textContent = isOpen ? '✓' : '✕';
+      icon.textContent = '✓';
       icon.style.flexShrink = '0';
 
       const text = document.createElement('span');
@@ -351,43 +351,44 @@
       text.textContent = time;
 
       const badge = document.createElement('span');
-      badge.className = `slot-badge ${isOpen ? 'badge-open' : 'badge-booked'}`;
-      badge.textContent = isOpen ? 'Open' : 'Booked';
+      badge.className = 'slot-badge';
+      badge.textContent = 'Open';
 
       slot.appendChild(icon);
       slot.appendChild(text);
       slot.appendChild(badge);
 
-      if (isOpen && !permanent) {
-        slot.addEventListener('click', () => openModal(`${day} · ${time}`, key, slot, icon, badge));
-      } else if (isOpen) {
-        slot.addEventListener('click', () => openModal(`${day} · ${time}`, null, null, null, null));
-      }
-
+      slot.addEventListener('click', () => openModal(`${day} · ${time}`, key, slot, slotsDiv));
       slotsDiv.appendChild(slot);
     });
+
+    // If all slots are hidden/booked for this day, show a message
+    if (visibleSlotCount === 0) {
+      slotsDiv.innerHTML = '<div class="fully-booked-msg">Fully Booked</div>';
+    }
 
     row.appendChild(label);
     row.appendChild(slotsDiv);
     grid.appendChild(row);
   });
 
-  function openModal(slotLabel, key, slotEl, iconEl, badgeEl) {
+  function openModal(slotLabel, key, slotEl, parentDiv) {
     document.getElementById('modalSlotLabel').textContent = slotLabel;
     const msg = encodeURIComponent(`Hi Yarik! I'd like to book the ${slotLabel} slot.`);
     const btn = document.getElementById('modalTextBtn');
     btn.href = `sms:${PHONE}&body=${msg}`;
 
-    // When they tap text to book, mark slot as booked in UI and storage
     btn.onclick = () => {
       if (key && slotEl) {
-        slotEl.className = 'slot slot-booked';
-        iconEl.textContent = '✕';
-        badgeEl.className = 'slot-badge badge-booked';
-        badgeEl.textContent = 'Booked';
-        slotEl.style.cursor = 'not-allowed';
-        slotEl.replaceWith(slotEl.cloneNode(true)); // remove click listener
         saveSlotState(key, false);
+        // Instantly hide the slot that was just booked
+        slotEl.style.display = 'none'; 
+        
+        // Check if there are any remaining visible slots for the day
+        const remainingSlots = parentDiv.querySelectorAll('.slot:not([style*="display: none"])');
+        if (remainingSlots.length === 0) {
+          parentDiv.innerHTML = '<div class="fully-booked-msg">Fully Booked</div>';
+        }
       }
       closeModal();
     };
