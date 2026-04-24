@@ -15,6 +15,9 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--dark); min-height: 100vh; }
 
+  /* 🛑 ANTI-SPIDER CSS 🛑 */
+  .bot-trap { display: none; visibility: hidden; position: absolute; left: -9999px; }
+
   nav {
     position: sticky; top: 0; z-index: 100;
     background: rgba(249,246,240,0.92); backdrop-filter: blur(12px);
@@ -41,7 +44,7 @@
   .hero-name { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; line-height: 1.1; color: var(--dark); margin-bottom: 6px; letter-spacing: -1px; }
   .hero-aka { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: var(--muted); margin-bottom: 20px; }
   .hero-desc { font-size: 0.95rem; font-weight: 300; color: #555; line-height: 1.75; margin-bottom: 28px; }
-  .cta-btn { display: inline-block; background: var(--dark); color: white; padding: 12px 26px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; text-decoration: none; letter-spacing: 0.3px; transition: background 0.2s, transform 0.1s; }
+  .cta-btn { display: inline-block; background: var(--dark); color: white; padding: 12px 26px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; text-decoration: none; letter-spacing: 0.3px; transition: background 0.2s, transform 0.1s; cursor: pointer; border: none; }
   .cta-btn:hover { background: #333; transform: translateY(-1px); }
 
   .creds-card { background: var(--card); border-radius: 16px; padding: 28px; border: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
@@ -71,7 +74,6 @@
 
   #schedule { max-width: 860px; margin: 0 auto; padding: 60px 32px; opacity: 0; animation: fadeUp 0.7s ease forwards; animation-delay: 0.5s; }
   
-  /* Removed the legend since we only show open slots now */
   .reset-note { font-size: 0.75rem; color: var(--muted); margin-bottom: 20px; font-style: italic; }
 
   .schedule-card { background: var(--card); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,0.06); border: 1px solid var(--border); }
@@ -80,7 +82,6 @@
   .day-label { padding: 16px 12px; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.6px; text-transform: uppercase; color: var(--dark); background: #FAFAF6; border-right: 1px solid #F3EFE8; display: flex; align-items: center; justify-content: center; text-align: center; }
   .slots { padding: 10px 14px; display: flex; flex-direction: column; gap: 7px; }
   
-  /* Simplified slot styles - only open slots are shown */
   .slot { display: flex; align-items: center; gap: 10px; padding: 10px 13px; border-radius: 8px; font-size: 0.84rem; font-weight: 500; transition: all 0.15s; background: var(--green-light); color: var(--green); cursor: pointer; border: 1px solid transparent; }
   .slot:hover { background: #D4ECDF; border-color: #A8D8BF; transform: translateX(3px); }
   .slot-text { flex: 1; }
@@ -103,11 +104,12 @@
   .cancel-card { background: #FFF8F0; border: 1px solid #F0E0C8; border-radius: 12px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
   .cancel-text h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; margin-bottom: 4px; color: var(--dark); }
   .cancel-text p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
-  .cancel-btn { background: white; border: 1px solid #E0C8A8; color: #A0622A; padding: 10px 20px; border-radius: 8px; font-size: 0.83rem; font-weight: 600; cursor: pointer; font-family: 'Nunito', sans-serif; text-decoration: none; transition: all 0.15s; white-space: nowrap; }
+  .cancel-btn { background: white; border: 1px solid #E0C8A8; color: #A0622A; padding: 10px 20px; border-radius: 8px; font-size: 0.83rem; font-weight: 600; cursor: pointer; font-family: 'Nunito', sans-serif; text-decoration: none; transition: all 0.15s; white-space: nowrap; border: 1px solid #E0C8A8; }
   .cancel-btn:hover { background: #FFF0E0; border-color: #C8A878; }
 
   footer { border-top: 1px solid var(--border); padding: 28px 32px; text-align: center; font-size: 0.78rem; color: var(--muted); }
   footer strong { color: #555; }
+  .contact-footer-link { color: inherit; text-decoration: underline; cursor: pointer; }
 
   @media (max-width: 640px) {
     .hero { grid-template-columns: 1fr; gap: 32px; padding: 48px 20px 40px; }
@@ -123,6 +125,11 @@
 </style>
 </head>
 <body>
+
+<div class="bot-trap">
+  <a href="tel:5550199999">Call Support</a>
+  <a href="sms:5550199999">Text for more info</a>
+</div>
 
 <nav>
   <div class="nav-logo">Yarik Conrad</div>
@@ -143,7 +150,7 @@
     <h1 class="hero-name">Yaroslav Conrad</h1>
     <p class="hero-aka">Known as Yarik</p>
     <p class="hero-desc">
-      I'm a high school junior offering personalized, one-on-one tutoring for elementary, middle, and high school students across math, English, and more. My approach is patient, structured, and tailored to how <em>you</em> learn best.
+      I'm a high school junior offering personalized, one-on-one tutoring for elementary, middle, and high school students. My approach is patient, structured, and tailored to how <em>you</em> learn best.
     </p>
     <a href="#schedule" class="cta-btn">View Open Slots →</a>
   </div>
@@ -189,17 +196,17 @@
   <div class="section-label">Where we meet</div>
   <h2 class="section-title">Tutoring Locations</h2>
   <div class="cards-grid">
-    <a href="https://maps.google.com/?q=Barnes+%26+Noble+Kildaire+Farm+Rd+Cary+NC" target="_blank" rel="noopener" class="card-box">
+    <a href="https://www.google.com/maps/search/?api=1&query=Barnes+%26+Noble+Kildaire+Farm+Rd+Cary+NC" target="_blank" rel="noopener" class="card-box">
       <div class="card-icon">☕</div>
       <div class="card-name">Mon & Wed</div>
       <div class="card-desc"><strong>Barnes & Noble</strong><br>Kildaire Farm Rd, Cary</div>
     </a>
-    <a href="https://maps.google.com/?q=Eva+Perry+Regional+Library+Apex+NC" target="_blank" rel="noopener" class="card-box">
+    <a href="https://www.google.com/maps/search/?api=1&query=Eva+Perry+Regional+Library+Apex+NC" target="_blank" rel="noopener" class="card-box">
       <div class="card-icon">📚</div>
       <div class="card-name">Tue & Thu</div>
       <div class="card-desc"><strong>Eva Perry Regional Library</strong><br>Apex</div>
     </a>
-    <a href="https://maps.google.com/?q=West+Regional+Library+Cary+NC" target="_blank" rel="noopener" class="card-box">
+    <a href="https://www.google.com/maps/search/?api=1&query=West+Regional+Library+Cary+NC" target="_blank" rel="noopener" class="card-box">
       <div class="card-icon">📍</div>
       <div class="card-name">Fri</div>
       <div class="card-desc"><strong>West Regional Library</strong><br>Cary</div>
@@ -220,14 +227,14 @@
   <div class="cancel-card">
     <div class="cancel-text">
       <h3>Need to cancel or reschedule?</h3>
-      <p>Please give at least 24 hours notice when possible. Text me directly and we'll find a new time.</p>
+      <p>Please give at least 24 hours notice when possible. Use the button to text me directly.</p>
     </div>
-    <a href="sms:9196015952&body=Hi Yarik, I need to cancel/reschedule my session." class="cancel-btn">📱 Text to Cancel</a>
+    <button onclick="contactYarik('Hi Yarik, I need to cancel or reschedule my session.')" class="cancel-btn">📱 Text to Cancel</button>
   </div>
 </section>
 
 <footer>
-  <strong>Yarik Conrad</strong> · Private Tutoring · Cary, NC · <a href="sms:9196015952" style="color:inherit;">919-601-5952</a>
+  <strong>Yarik Conrad</strong> · Private Tutoring · Cary, NC · <span onclick="contactYarik()" class="contact-footer-link">Text Me</span>
 </footer>
 
 <div class="modal-overlay" id="modalOverlay">
@@ -236,7 +243,7 @@
     <div class="modal-slot" id="modalSlotLabel"></div>
     <div class="modal-body">Tapping below will open a pre-filled text message to Yarik. He'll confirm your booking within a few hours.</div>
     <div class="modal-actions">
-      <a href="#" class="btn-primary" id="modalTextBtn">📱 Text to Book</a>
+      <button class="btn-primary" id="modalTextBtn">📱 Text to Book</button>
       <button class="btn-secondary" onclick="closeModal()">Cancel</button>
     </div>
   </div>
@@ -245,15 +252,6 @@
 <script>
   // =========================================================================
   // 🛑 EASY SCHEDULE UPDATER 🛑
-  // =========================================================================
-  // HOW IT WORKS:
-  // - open: true   => The slot is visible and someone can book it.
-  // - open: false  => The slot is BOOKED/HIDDEN. It will NOT show on the site.
-  // 
-  // - permanent: false => If a student books this slot, it hides. Next Monday, 
-  //                       it will automatically reset and become open again.
-  // - permanent: true  => This is a long-term client (like Ashley or Geet). 
-  //                       It will stay hidden permanently, even on Mondays.
   // =========================================================================
   const SCHEDULE = [
     { day: "Mon", slots: [
@@ -282,10 +280,19 @@
       { time: "6:30 – 7:30 PM", open: false, permanent: true  }, // Hafida
     ]},
   ];
-  const PHONE = "9196015952";
   // =========================================================================
-  // END SCHEDULE UPDATER — Do not edit below unless changing core features
-  // =========================================================================
+
+  // 🛑 ANTI-SPAM PROTECTION Logic 🛑
+  // Your number is split so bots can't read it in the source code.
+  const n1 = "919";
+  const n2 = "601";
+  const n3 = "5952";
+
+  function contactYarik(customMsg = "Hi Yarik!") {
+    const fullNum = n1 + n2 + n3;
+    const body = encodeURIComponent(customMsg);
+    window.location.href = `sms:${fullNum}&body=${body}`;
+  }
 
   // Weekly auto-reset logic
   function getWeekKey() {
@@ -320,53 +327,26 @@
   SCHEDULE.forEach(({ day, slots }) => {
     const row = document.createElement('div');
     row.className = 'day-row';
-
     const label = document.createElement('div');
     label.className = 'day-label';
     label.textContent = day;
-
     const slotsDiv = document.createElement('div');
     slotsDiv.className = 'slots';
-    
     let visibleSlotCount = 0;
 
     slots.forEach(({ time, open: defaultOpen, permanent }) => {
       const key = `${day}-${time}`;
       const isOpen = permanent ? defaultOpen : (slotStates[key] !== undefined ? slotStates[key] : defaultOpen);
-
-      // CRITICAL CHANGE: If slot is booked, we skip rendering it entirely.
       if (!isOpen) return;
-
       visibleSlotCount++;
-
       const slot = document.createElement('div');
       slot.className = 'slot';
-
-      const icon = document.createElement('span');
-      icon.textContent = '✓';
-      icon.style.flexShrink = '0';
-
-      const text = document.createElement('span');
-      text.className = 'slot-text';
-      text.textContent = time;
-
-      const badge = document.createElement('span');
-      badge.className = 'slot-badge';
-      badge.textContent = 'Open';
-
-      slot.appendChild(icon);
-      slot.appendChild(text);
-      slot.appendChild(badge);
-
+      slot.innerHTML = `<span>✓</span><span class="slot-text">${time}</span><span class="slot-badge">Open</span>`;
       slot.addEventListener('click', () => openModal(`${day} · ${time}`, key, slot, slotsDiv));
       slotsDiv.appendChild(slot);
     });
 
-    // If all slots are hidden/booked for this day, show a message
-    if (visibleSlotCount === 0) {
-      slotsDiv.innerHTML = '<div class="fully-booked-msg">Fully Booked</div>';
-    }
-
+    if (visibleSlotCount === 0) slotsDiv.innerHTML = '<div class="fully-booked-msg">Fully Booked</div>';
     row.appendChild(label);
     row.appendChild(slotsDiv);
     grid.appendChild(row);
@@ -374,25 +354,19 @@
 
   function openModal(slotLabel, key, slotEl, parentDiv) {
     document.getElementById('modalSlotLabel').textContent = slotLabel;
-    const msg = encodeURIComponent(`Hi Yarik! I'd like to book the ${slotLabel} slot.`);
     const btn = document.getElementById('modalTextBtn');
-    btn.href = `sms:${PHONE}&body=${msg}`;
-
+    
+    // Use the protected contact function on click
     btn.onclick = () => {
       if (key && slotEl) {
         saveSlotState(key, false);
-        // Instantly hide the slot that was just booked
         slotEl.style.display = 'none'; 
-        
-        // Check if there are any remaining visible slots for the day
         const remainingSlots = parentDiv.querySelectorAll('.slot:not([style*="display: none"])');
-        if (remainingSlots.length === 0) {
-          parentDiv.innerHTML = '<div class="fully-booked-msg">Fully Booked</div>';
-        }
+        if (remainingSlots.length === 0) parentDiv.innerHTML = '<div class="fully-booked-msg">Fully Booked</div>';
       }
+      contactYarik(`Hi Yarik! I'd like to book the ${slotLabel} slot.`);
       closeModal();
     };
-
     document.getElementById('modalOverlay').classList.add('active');
   }
 
